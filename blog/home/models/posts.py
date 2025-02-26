@@ -1,11 +1,6 @@
 from django.db import models
-
-# Create your models here.
-
-# Modelo de Categoria
-class Category(models.Model):
-      name = models.CharField(max_length=255)
-
+from .category import Category
+from .tag  import Tag
 # Modelo de post      
 class Post(models.Model):
     title = models.CharField(max_length=255)
@@ -13,6 +8,5 @@ class Post(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add= True) 
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
-
-
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='posts')
+    tags = models.ManyToManyField(Tag)
